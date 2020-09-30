@@ -13,11 +13,7 @@ fn main() {
         .expect("Something went wrong reading the file");
 
     println!("With text:\n{}", contents);
-
-    // --snip--
 }
-
-// --snip--
 
 struct Config {
     query: String,
@@ -25,7 +21,13 @@ struct Config {
 }
 
 impl Config {
+    // --snip--
     fn new(args: &[String]) -> Config {
+        if args.len() < 3 {
+            panic!("not enough arguments");
+        }
+        // --snip--
+
         let query = args[1].clone();
         let filename = args[2].clone();
 
