@@ -1,10 +1,12 @@
 use std::env;
 use std::fs;
 use std::process;
+use std::error::Error;
+
+// --snip--
+
 
 fn main() {
-    // --snip--
-
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
@@ -18,14 +20,13 @@ fn main() {
     run(config);
 }
 
-fn run(config: Config) {
-    let contents = fs::read_to_string(config.filename)
-        .expect("Something went wrong reading the file");
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.filename)?;
 
     println!("With text:\n{}", contents);
-}
 
-// --snip--
+    Ok(())
+}
 
 struct Config {
     query: String,
